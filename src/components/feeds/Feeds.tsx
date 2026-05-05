@@ -176,9 +176,9 @@ const D02: DesignSet = {
               <EditableImage id="d02s1.img" fallback={<PortfolioMock />} rounded="rounded-2xl" className="h-full w-full" />
             </div>
 
-            <div className="mt-4 flex items-center gap-3 text-[10px] text-white/60">
-              <E id="d02s1.m1"><b>+184% traffic</b></E>
-              <E id="d02s1.m2"><b>3.2s load</b></E>
+            <div className="mt-4 flex items-center gap-3 text-[10px] text-white/80">
+              <span className="font-semibold"><E id="d02s1.m1">+184% traffic</E></span>
+              <span className="font-semibold"><E id="d02s1.m2">3.2s load</E></span>
             </div>
           </div>
         </FeedShell>
@@ -316,7 +316,7 @@ const D03: DesignSet = {
               ))}
             </div>
             <div className="mt-3 text-[10px] text-[#6B7280]">
-              <E id="d03s1.by">By <b className="text-foreground">ByteCorner Team</b></E>
+              <E id="d03s1.byPre">By</E> <span className="font-semibold text-foreground"><E id="d03s1.by">ByteCorner Team</E></span>
             </div>
           </div>
         </FeedShell>
