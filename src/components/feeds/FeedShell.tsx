@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { EditableText } from "@/components/editor/EditableText";
+import { BrandLogoMark } from "@/components/editor/LogoUpload";
 
 export const FeedShell = ({
   children,
@@ -24,9 +25,7 @@ export const FeedShell = ({
 
 export const BrandTag = ({ light = false }: { light?: boolean }) => (
   <div className={`flex items-center gap-2 ${light ? "text-white/90" : "text-foreground/80"}`}>
-    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-brand-aqua text-[10px] font-bold text-white shadow-soft">
-      B
-    </div>
+    <BrandLogoMark size={24} light={light} />
     <span className="font-display text-sm font-semibold tracking-tight">
       ByteCorner<span className="opacity-60">.id</span>
     </span>
@@ -40,13 +39,7 @@ export const BrandFooter = ({ light = false, id = "footer.brand" }: { light?: bo
     }`}
   >
     <div className="flex items-center gap-1.5">
-      <div
-        className={`flex h-4 w-4 items-center justify-center rounded-[5px] text-[8px] font-bold ${
-          light ? "bg-white text-[#4FB7C5]" : "bg-brand-aqua text-white"
-        }`}
-      >
-        B
-      </div>
+      <BrandLogoMark size={16} light={light} rounded="rounded-[5px]" />
       <EditableText id={id} className="font-display text-[10px] font-semibold tracking-tight">
         ByteCorner.id
       </EditableText>
