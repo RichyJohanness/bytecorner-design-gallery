@@ -1,27 +1,5 @@
-import { FeedFrame } from "@/components/FeedFrame";
-import {
-  Feed01_FAQ,
-  Feed02_Portfolio,
-  Feed03_Insight,
-  Feed04_WebsiteTips,
-  Feed05_CodingTips,
-  Feed06_Branding,
-  Feed07_CaseStudy,
-  Feed08_QuickGuide,
-  Feed09_Soft,
-} from "@/components/feeds/Feeds";
-
-const feeds = [
-  { label: "FAQ Carousel", node: <Feed01_FAQ /> },
-  { label: "Portfolio Showcase", node: <Feed02_Portfolio /> },
-  { label: "Editorial Insight", node: <Feed03_Insight /> },
-  { label: "Website Tips", node: <Feed04_WebsiteTips /> },
-  { label: "Coding Tips", node: <Feed05_CodingTips /> },
-  { label: "Agency Branding", node: <Feed06_Branding /> },
-  { label: "Case Study", node: <Feed07_CaseStudy /> },
-  { label: "Quick Guide", node: <Feed08_QuickGuide /> },
-  { label: "Soft-Selling Service", node: <Feed09_Soft /> },
-];
+import { SlideCard } from "@/components/SlideCard";
+import { DESIGNS } from "@/components/feeds/Feeds";
 
 const Index = () => {
   return (
@@ -77,25 +55,26 @@ const Index = () => {
 
       {/* Gallery */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+          <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
           <div>
             <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
               The Grid
             </p>
             <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
-              9 designs · 4:5 feed ratio
+              9 designs · 27 slides · 4:5 ratio
             </h2>
+            <p className="mt-1 text-[12px] text-[#6B7280]">
+              Click any text to edit · hover image to replace · download each slide in HD.
+            </p>
           </div>
           <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
-            03 × 03
+            09 × 03
           </span>
         </div>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {feeds.map((f, i) => (
-            <FeedFrame key={i} index={i + 1} label={f.label}>
-              {f.node}
-            </FeedFrame>
+          {DESIGNS.map((d, i) => (
+            <SlideCard key={d.key} design={d} index={i + 1} />
           ))}
         </div>
       </section>
