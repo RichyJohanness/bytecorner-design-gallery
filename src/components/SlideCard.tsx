@@ -43,10 +43,10 @@ const SlideCardInner = ({
   const onDownload = async () => {
     if (!frameRef.current) return;
     setDownloading(true);
+    const node = frameRef.current;
+    const prevRadius = node.style.borderRadius;
+    node.style.borderRadius = "0px";
     try {
-      // IG portrait feed: 1080 x 1350. Frame is rendered at its CSS size; we
-      // upscale via pixelRatio to reach HD output.
-      const node = frameRef.current;
       const rect = node.getBoundingClientRect();
       const targetW = 1080;
       const pixelRatio = targetW / rect.width;
@@ -54,6 +54,7 @@ const SlideCardInner = ({
         pixelRatio,
         cacheBust: true,
         backgroundColor: "#ffffff",
+        style: { borderRadius: "0px" },
         filter: (el) => {
           if (!(el instanceof HTMLElement)) return true;
           return el.dataset.exportHide === undefined;
@@ -66,6 +67,7 @@ const SlideCardInner = ({
     } catch (e) {
       console.error("Export failed", e);
     } finally {
+      node.style.borderRadius = prevRadius;
       setDownloading(false);
     }
   };
