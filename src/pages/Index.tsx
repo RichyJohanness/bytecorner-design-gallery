@@ -1,5 +1,7 @@
 import { SlideCard } from "@/components/SlideCard";
 import { DESIGNS } from "@/components/feeds/Feeds";
+import { LogoUpload } from "@/components/editor/LogoUpload";
+import { WelcomeWide } from "@/components/WelcomeWide";
 
 const Index = () => {
   return (
