@@ -51,6 +51,7 @@ const Index = () => {
                 linear-gradient(135deg, #EAE5C9 → #6CC6CB)
               </p>
             </div>
+            <LogoUpload />
           </div>
         </div>
       </header>
@@ -79,6 +80,24 @@ const Index = () => {
             <SlideCard key={d.key} design={d} index={i + 1} />
           ))}
         </div>
+      </section>
+
+      {/* Wide Welcome Canvas */}
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+          <div>
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+              Bonus · Wide Canvas
+            </p>
+            <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+              The welcome banner · 3:1 (3240 × 1080)
+            </h2>
+            <p className="mt-1 text-[12px] text-[#6B7280]">
+              One continuous opening composition for ByteCorner.id — crop into 3 IG posts after export.
+            </p>
+          </div>
+        </div>
+        <WelcomeWide />
       </section>
 
       <footer className="border-t border-foreground/10">
