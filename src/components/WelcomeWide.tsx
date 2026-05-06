@@ -8,155 +8,68 @@ import { BrandFooter } from "./feeds/FeedShell";
 
 /**
  * Wide welcoming canvas — 3240 x 1080 (3:1).
- * Single connected composition meant to be cropped into 3 IG square posts later.
+ * Clean, premium, editorial. One refined statement, lots of breathing space.
  */
 const WelcomeCanvas = () => {
   return (
     <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#EAE5C9] to-[#6CC6CB]">
-      {/* Soft mesh overlay */}
-      <div className="absolute inset-0 bg-mesh opacity-25 mix-blend-soft-light" />
-      {/* Decorative glow blobs */}
-      <div className="absolute -left-[5%] top-[15%] h-[55%] w-[28%] rounded-full bg-[#A7F3D0]/40 blur-3xl" />
-      <div className="absolute right-[5%] top-[-10%] h-[60%] w-[30%] rounded-full bg-[#FFD6A5]/30 blur-3xl" />
-      <div className="absolute bottom-[-15%] left-[40%] h-[55%] w-[35%] rounded-full bg-[#4FB7C5]/25 blur-3xl" />
+      {/* Subtle mesh + glow */}
+      <div className="absolute inset-0 bg-mesh opacity-20 mix-blend-soft-light" />
+      <div className="absolute -right-[8%] -top-[20%] h-[80%] w-[45%] rounded-full bg-white/30 blur-3xl" />
+      <div className="absolute -bottom-[30%] -left-[10%] h-[80%] w-[45%] rounded-full bg-[#A7F3D0]/25 blur-3xl" />
 
-      {/* 3-column visual rhythm — guides for IG crop */}
-      <div className="absolute inset-0 flex pointer-events-none" data-export-hide>
-        <div className="flex-1 border-r border-white/30" />
-        <div className="flex-1 border-r border-white/30" />
-        <div className="flex-1" />
+      {/* Top bar */}
+      <div className="absolute left-[3.5%] right-[3.5%] top-[5%] flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <BrandLogoMark size={48} rounded="rounded-xl" />
+          <p className="font-display text-[20px] font-semibold leading-none text-[#1F2937]">
+            ByteCorner<span className="opacity-50">.id</span>
+          </p>
+        </div>
+        <span className="rounded-full bg-white/60 px-4 py-1.5 font-mono-code text-[10px] uppercase tracking-[0.35em] text-[#1F2937]/75 ring-1 ring-white/70 backdrop-blur-md">
+          <E id="welcome.badge">Digital studio · Est. 2025</E>
+        </span>
       </div>
 
-      {/* Content layout — 3 zones flowing as one */}
-      <div className="relative flex h-full w-full p-[3.5%]">
-        {/* LEFT — Brand mark + intro */}
-        <div className="flex w-1/3 flex-col justify-between pr-[3%]">
-          <div className="flex items-center gap-3">
-            <BrandLogoMark size={56} rounded="rounded-2xl" />
-            <div>
-              <p className="font-display text-[22px] font-semibold leading-none text-[#1F2937]">
-                ByteCorner<span className="opacity-60">.id</span>
-              </p>
-              <E
-                id="welcome.kicker"
-                className="mt-1.5 block font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#1F2937]/60"
-              >
-                Digital Studio · Est. 2025
-              </E>
-            </div>
-          </div>
-
-          <div>
-            <E
-              id="welcome.eyebrow"
-              className="font-mono-code text-[11px] uppercase tracking-[0.4em] text-[#4FB7C5]"
-            >
-              Hello, Internet —
+      {/* Hero — single centered statement */}
+      <div className="relative flex h-full w-full items-center justify-center px-[8%]">
+        <div className="max-w-[78%] text-center">
+          <E
+            id="welcome.eyebrow"
+            className="font-mono-code text-[12px] uppercase tracking-[0.5em] text-[#1F2937]/55"
+          >
+            Hello, internet
+          </E>
+          <h1 className="mt-7 font-display text-[112px] font-semibold leading-[0.92] tracking-tight text-[#1F2937]">
+            <E id="welcome.h1a">We design</E>{" "}
+            <E id="welcome.h1b" className="italic text-gradient">digital corners</E>
+            <br />
+            <E id="welcome.h1c">that feel like home.</E>
+          </h1>
+          <p className="mx-auto mt-8 max-w-[58%] text-[18px] leading-relaxed text-[#1F2937]/65">
+            <E id="welcome.sub" multiline>
+              Brand, websites & digital products — crafted with quiet confidence for founders who care about details.
             </E>
-            <h1 className="mt-3 font-display text-[64px] font-semibold leading-[0.95] text-[#1F2937]">
-              <E id="welcome.h1a">We craft</E>
-              <br />
-              <E id="welcome.h1b" className="italic text-gradient">
-                digital corners
-              </E>
-              <br />
-              <E id="welcome.h1c">that feel like home.</E>
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="h-px w-10 bg-[#1F2937]/40" />
-            <E
-              id="welcome.leftFoot"
-              className="font-mono-code text-[10px] uppercase tracking-[0.3em] text-[#1F2937]/55"
-            >
-              swipe → meet the studio
-            </E>
-          </div>
+          </p>
         </div>
+      </div>
 
-        {/* MIDDLE — Hero statement + glass card */}
-        <div className="flex w-1/3 flex-col items-center justify-center px-[2%] text-center">
-          <div className="glass shadow-glass w-full rounded-[28px] p-7">
-            <E
-              id="welcome.midKicker"
-              className="font-mono-code text-[10px] uppercase tracking-[0.4em] text-[#4FB7C5]"
-            >
-              Welcome to ByteCorner
-            </E>
-            <p className="mt-4 font-display text-[44px] font-semibold leading-[1.0] text-[#1F2937]">
-              <E id="welcome.midTitle">A small studio with a big appetite for clean design.</E>
-            </p>
-            <p className="mt-5 text-[14px] leading-relaxed text-[#1F2937]/70">
-              <E id="welcome.midDesc" multiline>
-                We build websites, brand systems & digital products for founders who care about details — fast, premium, and quietly confident.
-              </E>
-            </p>
-
-            <div className="mt-6 flex items-center justify-center gap-2">
-              {["websites", "branding", "ui/ux", "no-code"].map((t, i) => (
-                <span
-                  key={i}
-                  className="rounded-full bg-white/60 px-3 py-1 font-mono-code text-[10px] uppercase tracking-widest text-[#1F2937]/70 ring-1 ring-white/70"
-                >
-                  <E id={`welcome.tag${i}`}>{t}</E>
-                </span>
-              ))}
-            </div>
-          </div>
+      {/* Bottom bar */}
+      <div className="absolute bottom-[8%] left-[3.5%] right-[3.5%] flex items-end justify-between">
+        <div>
+          <E
+            id="welcome.leftFoot"
+            className="font-mono-code text-[10px] uppercase tracking-[0.4em] text-[#1F2937]/55"
+          >
+            Jakarta · Remote · Worldwide
+          </E>
         </div>
-
-        {/* RIGHT — CTA + service list */}
-        <div className="flex w-1/3 flex-col justify-between pl-[3%]">
-          <div className="flex items-center justify-end gap-2">
-            <span className="rounded-full bg-[#1F2937] px-3 py-1.5 font-mono-code text-[10px] uppercase tracking-widest text-white">
-              <E id="welcome.badge">Now Open · 2025</E>
-            </span>
+        <div className="flex items-center gap-3">
+          <div className="rounded-full bg-[#1F2937] px-6 py-3 font-display text-[14px] font-semibold text-white shadow-soft">
+            <E id="welcome.cta1">Start a project →</E>
           </div>
-
-          <div className="space-y-3">
-            <E
-              id="welcome.rightKicker"
-              className="font-mono-code text-[11px] uppercase tracking-[0.4em] text-[#4FB7C5]"
-            >
-              What we do
-            </E>
-            {[
-              { n: "01", t: "Brand Identity", d: "logo, system, guidelines" },
-              { n: "02", t: "Website Design", d: "landing, marketing, e-comm" },
-              { n: "03", t: "Digital Products", d: "ui/ux, web app, dashboards" },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-4 rounded-2xl bg-white/55 p-3.5 ring-1 ring-white/60 backdrop-blur-md"
-              >
-                <span className="font-mono-code text-[11px] font-semibold text-[#4FB7C5]">
-                  <E id={`welcome.sn${i}`}>{s.n}</E>
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-display text-[18px] font-semibold leading-none text-[#1F2937]">
-                    <E id={`welcome.st${i}`}>{s.t}</E>
-                  </p>
-                  <p className="mt-1 text-[11px] text-[#1F2937]/65">
-                    <E id={`welcome.sd${i}`}>{s.d}</E>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div>
-            <div className="flex items-center justify-end gap-3">
-              <div className="rounded-full bg-[#1F2937] px-5 py-3 font-display text-[14px] font-semibold text-white shadow-soft">
-                <E id="welcome.cta1">Start a project →</E>
-              </div>
-              <div className="rounded-full bg-white/70 px-5 py-3 font-display text-[14px] font-semibold text-[#1F2937] ring-1 ring-white/70 backdrop-blur-md">
-                <E id="welcome.cta2">hi@bytecorner.id</E>
-              </div>
-            </div>
-            <p className="mt-3 text-right font-mono-code text-[10px] uppercase tracking-[0.3em] text-[#1F2937]/55">
-              <E id="welcome.rightFoot">jakarta · remote · worldwide</E>
-            </p>
+          <div className="rounded-full bg-white/70 px-6 py-3 font-display text-[14px] font-semibold text-[#1F2937] ring-1 ring-white/70 backdrop-blur-md">
+            <E id="welcome.cta2">hi@bytecorner.id</E>
           </div>
         </div>
       </div>
@@ -164,6 +77,13 @@ const WelcomeCanvas = () => {
       {/* Footer band — branding always visible */}
       <div className="absolute bottom-[1.5%] left-[3.5%] right-[3.5%]">
         <BrandFooter id="welcome.footer" />
+      </div>
+
+      {/* Subtle 3-column crop guides */}
+      <div className="pointer-events-none absolute inset-0 flex" data-export-hide>
+        <div className="flex-1 border-r border-white/25" />
+        <div className="flex-1 border-r border-white/25" />
+        <div className="flex-1" />
       </div>
     </div>
   );
