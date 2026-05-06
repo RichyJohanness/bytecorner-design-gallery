@@ -106,7 +106,7 @@ export const InstagramProfile = () => {
               key={p.id}
               type="button"
               onClick={() => setOpenId(p.id)}
-              className="group relative aspect-square overflow-hidden bg-foreground/5"
+              className="group relative aspect-[4/5] overflow-hidden bg-foreground/5"
             >
               <img
                 src={p.images[0]}

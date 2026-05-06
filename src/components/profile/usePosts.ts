@@ -12,7 +12,7 @@ export type SavedPost = {
 const KEY = "bytecorner.posts";
 const EVT = "bytecorner-posts-change";
 
-const read = (): SavedPost[] => {
+const readFromStorage = (): SavedPost[] => {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return [];
@@ -22,28 +22,38 @@ const read = (): SavedPost[] => {
   }
 };
 
+// Module-level shared store — guarantees every hook instance sees the same posts,
+// even if localStorage write fails (quota exceeded). This was the source of the
+// "stops at 7 posts" bug: failed writes meant other hook instances kept reading
+// stale data from localStorage.
+let memoryStore: SavedPost[] = readFromStorage();
+
+const broadcast = () => window.dispatchEvent(new Event(EVT));
+
+const writeStore = (next: SavedPost[]) => {
+  memoryStore = next;
+  try {
+    localStorage.setItem(KEY, JSON.stringify(next));
+  } catch (e) {
+    console.warn("Could not persist posts to localStorage (likely quota). Keeping in memory.", e);
+  }
+  broadcast();
+};
+
 export const usePosts = () => {
-  const [posts, setPosts] = useState<SavedPost[]>(read);
+  const [posts, setPosts] = useState<SavedPost[]>(memoryStore);
 
   useEffect(() => {
-    const handler = () => setPosts(read());
+    const handler = () => setPosts([...memoryStore]);
     window.addEventListener(EVT, handler);
-    window.addEventListener("storage", handler);
+    window.addEventListener("storage", () => {
+      memoryStore = readFromStorage();
+      handler();
+    });
     return () => {
       window.removeEventListener(EVT, handler);
-      window.removeEventListener("storage", handler);
     };
   }, []);
-
-  const persist = (next: SavedPost[]) => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(next));
-    } catch (e) {
-      console.error("Failed to save posts", e);
-    }
-    setPosts(next);
-    window.dispatchEvent(new Event(EVT));
-  };
 
   const addPost = useCallback((p: Omit<SavedPost, "id" | "createdAt">) => {
     const post: SavedPost = {
@@ -51,15 +61,15 @@ export const usePosts = () => {
       id: `post-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
       createdAt: Date.now(),
     };
-    persist([post, ...read()]);
+    writeStore([post, ...memoryStore]);
     return post;
   }, []);
 
   const removePost = useCallback((id: string) => {
-    persist(read().filter((p) => p.id !== id));
+    writeStore(memoryStore.filter((p) => p.id !== id));
   }, []);
 
-  const clearAll = useCallback(() => persist([]), []);
+  const clearAll = useCallback(() => writeStore([]), []);
 
   return { posts, addPost, removePost, clearAll };
 };

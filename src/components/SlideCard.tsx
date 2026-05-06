@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Loader2, Send, Layers } from "lucide-react";
-import { toPng } from "html-to-image";
+import { toPng, toJpeg } from "html-to-image";
 import { SlideProvider } from "./editor/SlideContext";
 import type { DesignSet } from "./feeds/Feeds";
 import { usePosts } from "./profile/usePosts";
@@ -84,10 +84,29 @@ const SlideCardInner = ({
   };
 
   const captureSlide = async (i: number) => {
-    // Make sure that slide is mounted (it always is — we render all hidden offscreen)
     const node = slidesRefs.current[i];
     if (!node) throw new Error("Slide not ready");
-    return await captureNode(node);
+    // Posted thumbnails: smaller JPEG to keep localStorage small (avoid quota / silent cap)
+    const prevRadius = node.style.borderRadius;
+    node.style.borderRadius = "0px";
+    try {
+      const rect = node.getBoundingClientRect();
+      const targetW = 540; // 4:5 → 540x675, plenty for grid + viewer, ~10x smaller than 1080
+      const pixelRatio = targetW / rect.width;
+      return await toJpeg(node, {
+        pixelRatio,
+        cacheBust: true,
+        quality: 0.82,
+        backgroundColor: "#ffffff",
+        style: { borderRadius: "0px" },
+        filter: (el) => {
+          if (!(el instanceof HTMLElement)) return true;
+          return el.dataset.exportHide === undefined;
+        },
+      });
+    } finally {
+      node.style.borderRadius = prevRadius;
+    }
   };
 
   const onPostSingle = async () => {
