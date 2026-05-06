@@ -36,12 +36,13 @@ export const usePosts = () => {
   }, []);
 
   const persist = (next: SavedPost[]) => {
+    setPosts(next);
     try {
       localStorage.setItem(KEY, JSON.stringify(next));
     } catch (e) {
-      console.error("Failed to save posts", e);
+      // Quota exceeded or similar — keep in-memory state so the UI still shows the post
+      console.warn("Could not persist posts to localStorage (likely quota). Keeping in memory.", e);
     }
-    setPosts(next);
     window.dispatchEvent(new Event(EVT));
   };
 
