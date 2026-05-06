@@ -101,6 +101,32 @@ const Index = () => {
         <WelcomeWide />
       </section>
 
+      {/* Extra Design Sets */}
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+          <div>
+            <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+              The Extension
+            </p>
+            <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+              6 new designs · 18 more slides
+            </h2>
+            <p className="mt-1 text-[12px] text-[#6B7280]">
+              Articles, launches, testimonials, trends, product updates & system spotlights.
+            </p>
+          </div>
+          <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
+            06 × 03
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+          {EXTRA_DESIGNS.map((d, i) => (
+            <SlideCard key={d.key} design={d} index={i + 10} />
+          ))}
+        </div>
+      </section>
+
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-8 text-center md:flex-row md:text-left">
           <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
