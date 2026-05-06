@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Loader2, Send, Layers } from "lucide-react";
-import { toPng } from "html-to-image";
+import { toPng, toJpeg } from "html-to-image";
 import { SlideProvider } from "./editor/SlideContext";
 import type { DesignSet } from "./feeds/Feeds";
 import { usePosts } from "./profile/usePosts";
