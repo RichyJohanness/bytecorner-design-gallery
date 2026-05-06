@@ -37,13 +37,16 @@ export const usePosts = () => {
 
   const persist = (next: SavedPost[]) => {
     setPosts(next);
+    let saved = false;
     try {
       localStorage.setItem(KEY, JSON.stringify(next));
+      saved = true;
     } catch (e) {
-      // Quota exceeded or similar — keep in-memory state so the UI still shows the post
+      // Quota exceeded — keep in-memory state so the UI still shows the post
       console.warn("Could not persist posts to localStorage (likely quota). Keeping in memory.", e);
     }
-    window.dispatchEvent(new Event(EVT));
+    // Only broadcast if we actually wrote, otherwise other hook instances would re-read stale data
+    if (saved) window.dispatchEvent(new Event(EVT));
   };
 
   const addPost = useCallback((p: Omit<SavedPost, "id" | "createdAt">) => {
