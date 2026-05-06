@@ -1,10 +1,17 @@
+import { useState } from "react";
 import { SlideCard } from "@/components/SlideCard";
 import { DESIGNS } from "@/components/feeds/Feeds";
 import { EXTRA_DESIGNS } from "@/components/feeds/FeedsExtra";
 import { LogoUpload } from "@/components/editor/LogoUpload";
 import { WelcomeWide } from "@/components/WelcomeWide";
+import { InstagramProfile } from "@/components/profile/InstagramProfile";
+import { usePosts } from "@/components/profile/usePosts";
+import { LayoutGrid, Instagram } from "lucide-react";
 
 const Index = () => {
+  const [tab, setTab] = useState<"editor" | "profile">("editor");
+  const { posts } = usePosts();
+
   return (
     <main className="min-h-screen w-full">
       {/* Hero */}
@@ -54,78 +61,134 @@ const Index = () => {
             </div>
             <LogoUpload />
           </div>
+
+          {/* Tab switcher */}
+          <div className="mt-10 inline-flex items-center gap-1 rounded-full glass shadow-soft p-1">
+            <button
+              type="button"
+              onClick={() => setTab("editor")}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-semibold transition ${
+                tab === "editor"
+                  ? "bg-[#1F2937] text-white shadow-soft"
+                  : "text-[#1F2937]/70 hover:text-[#1F2937]"
+              }`}
+            >
+              <LayoutGrid className="h-3.5 w-3.5" />
+              Design Editor
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("profile")}
+              className={`flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-semibold transition ${
+                tab === "profile"
+                  ? "bg-[#1F2937] text-white shadow-soft"
+                  : "text-[#1F2937]/70 hover:text-[#1F2937]"
+              }`}
+            >
+              <Instagram className="h-3.5 w-3.5" />
+              Instagram Profile
+              <span
+                className={`rounded-full px-1.5 text-[10px] font-bold ${
+                  tab === "profile" ? "bg-white/20 text-white" : "bg-[#1F2937]/10 text-[#1F2937]"
+                }`}
+              >
+                {posts.length}
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Gallery */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
+      {tab === "editor" ? (
+        <>
+          {/* Gallery */}
+          <section className="mx-auto max-w-7xl px-6 pb-24">
+            <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+              <div>
+                <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+                  The Grid
+                </p>
+                <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+                  9 designs · 27 slides · 4:5 ratio
+                </h2>
+                <p className="mt-1 text-[12px] text-[#6B7280]">
+                  Click any text to edit · hover image to replace · download or post each slide.
+                </p>
+              </div>
+              <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
+                09 × 03
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+              {DESIGNS.map((d, i) => (
+                <SlideCard key={d.key} design={d} index={i + 1} />
+              ))}
+            </div>
+          </section>
+
+          {/* Wide Welcome Canvas */}
+          <section className="mx-auto max-w-7xl px-6 pb-24">
+            <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+              <div>
+                <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+                  Bonus · Wide Canvas
+                </p>
+                <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+                  The welcome banner · 3:1 (3240 × 1080)
+                </h2>
+                <p className="mt-1 text-[12px] text-[#6B7280]">
+                  One continuous opening composition for ByteCorner.id — crop into 3 IG posts after export.
+                </p>
+              </div>
+            </div>
+            <WelcomeWide />
+          </section>
+
+          {/* Extra Design Sets */}
+          <section className="mx-auto max-w-7xl px-6 pb-24">
+            <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
+              <div>
+                <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+                  The Extension
+                </p>
+                <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+                  6 new designs · 18 more slides
+                </h2>
+                <p className="mt-1 text-[12px] text-[#6B7280]">
+                  Articles, launches, testimonials, trends, product updates & system spotlights.
+                </p>
+              </div>
+              <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
+                06 × 03
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+              {EXTRA_DESIGNS.map((d, i) => (
+                <SlideCard key={d.key} design={d} index={i + 10} />
+              ))}
+            </div>
+          </section>
+        </>
+      ) : (
+        <section className="mx-auto max-w-5xl px-6 pb-24">
           <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
-          <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
-              The Grid
-            </p>
-            <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
-              9 designs · 27 slides · 4:5 ratio
-            </h2>
-            <p className="mt-1 text-[12px] text-[#6B7280]">
-              Click any text to edit · hover image to replace · download each slide in HD.
-            </p>
+            <div>
+              <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
+                Mock Profile
+              </p>
+              <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
+                @bytecorner.id · Instagram preview
+              </h2>
+              <p className="mt-1 text-[12px] text-[#6B7280]">
+                Posts saved locally · refresh-safe · click any post to view full-size.
+              </p>
+            </div>
           </div>
-          <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
-            09 × 03
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {DESIGNS.map((d, i) => (
-            <SlideCard key={d.key} design={d} index={i + 1} />
-          ))}
-        </div>
-      </section>
-
-      {/* Wide Welcome Canvas */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
-          <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
-              Bonus · Wide Canvas
-            </p>
-            <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
-              The welcome banner · 3:1 (3240 × 1080)
-            </h2>
-            <p className="mt-1 text-[12px] text-[#6B7280]">
-              One continuous opening composition for ByteCorner.id — crop into 3 IG posts after export.
-            </p>
-          </div>
-        </div>
-        <WelcomeWide />
-      </section>
-
-      {/* Extra Design Sets */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="mb-8 flex items-end justify-between border-t border-foreground/10 pt-8">
-          <div>
-            <p className="font-mono-code text-[11px] uppercase tracking-[0.3em] text-[#6B7280]">
-              The Extension
-            </p>
-            <h2 className="mt-1 font-display text-2xl font-semibold text-foreground">
-              6 new designs · 18 more slides
-            </h2>
-            <p className="mt-1 text-[12px] text-[#6B7280]">
-              Articles, launches, testimonials, trends, product updates & system spotlights.
-            </p>
-          </div>
-          <span className="hidden font-mono-code text-[11px] text-[#6B7280] md:inline">
-            06 × 03
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {EXTRA_DESIGNS.map((d, i) => (
-            <SlideCard key={d.key} design={d} index={i + 10} />
-          ))}
-        </div>
-      </section>
+          <InstagramProfile />
+        </section>
+      )}
 
       <footer className="border-t border-foreground/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-8 text-center md:flex-row md:text-left">
