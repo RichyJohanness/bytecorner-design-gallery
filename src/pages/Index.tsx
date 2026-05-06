@@ -1,5 +1,6 @@
 import { SlideCard } from "@/components/SlideCard";
 import { DESIGNS } from "@/components/feeds/Feeds";
+import { EXTRA_DESIGNS } from "@/components/feeds/FeedsExtra";
 import { LogoUpload } from "@/components/editor/LogoUpload";
 import { WelcomeWide } from "@/components/WelcomeWide";
 
